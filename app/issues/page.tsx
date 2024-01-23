@@ -1,16 +1,12 @@
 import { Table, TableColumnHeaderCell } from '@radix-ui/themes'
-import Link from '../components/Link'
 import React from 'react'
 import prisma from '@/prisma/client'
-import IssueStatusBadge from '../components/IssueStatusBadge'
-import delay from "delay"
+import { Link, IssueStatusBadge} from "@/app/components"; // Coming from our index file
 import IssueActions from './IssueActions'
 
 const IssuesPage = async() => {
 
   const issues = await prisma.issue.findMany();
-
-  await delay(2000);
 
   return (
     <div>
