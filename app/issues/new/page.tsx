@@ -26,7 +26,7 @@ const NewIssuePage = () => {
     
     // Function to handle form submission
 
-    const onSubmit = handleSubmit(async(data) => {
+    const submitFunction = handleSubmit(async(data) => {
 
         // Send the data to the api on post submit then redirect user to issues page
 
@@ -34,6 +34,10 @@ const NewIssuePage = () => {
             setSubmiting(true);
             await axios.post("/api/issues", data) 
             router.push("/issues");
+            
+            // Refresh the page to show the newly added issue 
+
+            router.refresh()
 
         } catch(error) {
             setSubmiting(false);
@@ -49,7 +53,7 @@ const NewIssuePage = () => {
                 <Callout.Text> { error } </Callout.Text> 
                 </Callout.Root>}
 
-            <form className=' space-y-3' onSubmit={onSubmit}>
+            <form className=' space-y-3' onSubmit={submitFunction}>
 
                 <TextField.Root>
                     <TextField.Input placeholder='Issue title' { ...register("title")}/>
