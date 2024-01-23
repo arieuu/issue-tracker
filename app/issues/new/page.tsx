@@ -22,6 +22,25 @@ const NewIssuePage = () => {
     const router = useRouter();
     const [error, setError] = useState("");
     const [ isSubmiting, setSubmiting ] = useState(false);
+    
+    
+    // Function to handle form submission
+
+    const onSubmit = handleSubmit(async(data) => {
+
+        // Send the data to the api on post submit then redirect user to issues page
+
+        try {
+            setSubmiting(true);
+            await axios.post("/api/issues", data) 
+            router.push("/issues");
+
+        } catch(error) {
+            setSubmiting(false);
+            setError("An unexpected error ocurred");
+        }
+
+    });
 
     return (
         
@@ -30,21 +49,7 @@ const NewIssuePage = () => {
                 <Callout.Text> { error } </Callout.Text> 
                 </Callout.Root>}
 
-            <form className=' space-y-3' onSubmit={handleSubmit(async(data) => {
-
-                // Send the data to the api on post submit then redirect user to issues page
-
-                try {
-                    setSubmiting(true);
-                    await axios.post("/api/issues", data) 
-                    router.push("/issues");
-
-                } catch(error) {
-                    setSubmiting(false);
-                    setError("An unexpected error ocurred");
-                }
-
-            })}>
+            <form className=' space-y-3' onSubmit={onSubmit}>
 
                 <TextField.Root>
                     <TextField.Input placeholder='Issue title' { ...register("title")}/>
