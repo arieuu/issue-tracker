@@ -17,6 +17,8 @@ const IssueDetailPage = async ( { params }: Props) => {
     });
     
     if(!issue) notFound();
+
+    // Return the page for layout
     
     return (
         <Grid columns={{ initial: "1", md: "2"}} gap="5">
