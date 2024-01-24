@@ -36,7 +36,6 @@ interface Props {
 }
 
 export async function DELETE(request: NextRequest, { params }: Props) {
-    
     const issue = await prisma.issue.findUnique({ where: { id: parseInt(params.id) }});
 
     if(!issue) {
@@ -45,7 +44,7 @@ export async function DELETE(request: NextRequest, { params }: Props) {
 
     // If nothing is wrong we delete the issue
 
-    prisma.issue.delete({ where: { id: issue.id }});
+    await prisma.issue.delete({ where: { id: issue.id }});
 
     return NextResponse.json({}, { status: 200 });
 
