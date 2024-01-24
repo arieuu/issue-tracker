@@ -44,4 +44,9 @@ const IssuesPage = async() => {
   )
 }
 
-export default IssuesPage
+/* This forces nextjs to render this page dynamically instead of on the server
+   that way we can reload the page and see when the issues change.*/
+
+export const dynamic = "force-dynamic";
+
+export default IssuesPage;

@@ -59,7 +59,7 @@ const IssueForm = ({ issue }: Props) => {
 
             router.push("/issues");
             
-            // Refresh the page to show the newly added issue 
+            // Invalidating the client cache and refresh the current route (/issues)
 
             router.refresh()
 
