@@ -47,7 +47,16 @@ const IssueForm = ({ issue }: Props) => {
 
         try {
             setSubmiting(true);
-            await axios.post("/api/issues", data) 
+
+            // Logic to decide if we create a new issue or update existing one
+
+            if(issue) {
+                await axios.patch("/api/issues/" + issue.id, data);
+
+            } else {
+                await axios.post("/api/issues", data) 
+            }
+
             router.push("/issues");
             
             // Refresh the page to show the newly added issue 
@@ -85,7 +94,7 @@ const IssueForm = ({ issue }: Props) => {
                 <ErrorMessage> { errors.description?.message } </ErrorMessage>
                 
 
-                <Button disabled={ isSubmiting }> Submit new Issue { isSubmiting && <Spinner />} </Button>
+                <Button disabled={ isSubmiting }> { issue ? "Update issue " : "Create issue " } { isSubmiting && <Spinner />} </Button>
             </form>
         </div>
     )
