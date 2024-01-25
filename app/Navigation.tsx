@@ -44,21 +44,23 @@ const Navigation = () => {
                         <DropdownMenu.Root>
 
                             <DropdownMenu.Trigger>
-                                <Avatar src={session.user!.image!} fallback="?" size="2" radius='full' className='cursor-pointer'/> 
+                                <Avatar src={session.user!.image!} fallback="?" size="2" radius='full' className='cursor-pointer'
+                                 referrerPolicy='no-referrer' 
+                                /> 
                             </DropdownMenu.Trigger>
 
                             
                             <DropdownMenu.Content>
                                 <DropdownMenu.Label>
                                     <Text size="2">
-                                        { session.user?.email}
+                                        { session.user!.email}
                                     </Text>
                                 </DropdownMenu.Label>
 
                                 <DropdownMenu.Item>
                                     <Link href="/api/auth/signout"> Logout </Link>
                                 </DropdownMenu.Item>
-                                
+
                             </DropdownMenu.Content>
                         </DropdownMenu.Root>
                     )}
