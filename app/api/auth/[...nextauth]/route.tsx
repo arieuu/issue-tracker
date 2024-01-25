@@ -3,25 +3,9 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/prisma/client";
+import authOptions from "@/app/auth/authOptions";
 
 
-const handler = NextAuth({
-    adapter: PrismaAdapter(prisma),
-    providers: [
-        GoogleProvider({
-        
-        // The exclamation points at the end ensure the TS compiler that we do have those values (they're in the env file)
-
-        clientId: process.env.GOOGLE_CLIENT_ID!,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET!
-    })
-    ],
-
-    // Change strategy to work with Oauth
-
-    session: {
-        strategy: "jwt"
-    }
-});
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
