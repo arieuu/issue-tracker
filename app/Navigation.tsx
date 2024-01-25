@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import classNames from 'classnames'; // Library to handle dynamic classes/classnames
 import { useSession } from "next-auth/react";
 import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import { Skeleton } from "@/app/components";
 
 const Navigation = () => {
     
@@ -31,7 +32,7 @@ const AuthStatus = () => {
     
     const { status, data: session } = useSession();
 
-    if(status === "loading") return null;
+    if(status === "loading") return <Skeleton width="3rem"/>;
 
     if(status === "unauthenticated") return <Link className='nav-link' href="/api/auth/signin"> Log in </Link>
 
