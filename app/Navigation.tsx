@@ -4,10 +4,13 @@ import Link from 'next/link';
 import { AiFillBug } from "react-icons/ai";
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames'; // Library to handle dynamic classes/classnames
+import { useSession } from "next-auth/react";
+import { Box } from '@radix-ui/themes';
 
 const Navigation = () => {
     
     const currentPath = usePathname();
+    const { status, data: session } = useSession();
 
     // Put all links in an array so we can style them all at once
 
@@ -31,6 +34,11 @@ const Navigation = () => {
             })}
 
         </ul>
+
+        <Box>
+            { status === "authenticated" && <Link href="/api/auth/signout"> Log out </Link>}
+            { status === "unauthenticated" && <Link href="/api/auth/signin"> Log in </Link>}
+        </Box>
         
     </nav>
     )
