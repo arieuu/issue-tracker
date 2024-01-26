@@ -11,7 +11,6 @@ interface Props {
 }
 
 const DeleteIssueButton = ({ issueId }: Props) => {
-    console.log("here")
     const router = useRouter();
     const [ isError, setIsError ] = useState(false);
     const [ isDeleting, setIsDeleting ] = useState(false);
