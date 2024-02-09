@@ -48,10 +48,10 @@ const IssuesPage = async({ searchParams }: Props) => {
           <Table.Row>
 
             { columns.map(column => (
-                <TableColumnHeaderCell key={column.value}> 
+                <Table.ColumnHeaderCell key={column.value} className={column.className}> 
                     <Link href={{ query: { ...searchParams, orderBy: column.value }}}> {column.label} </Link>
                     { column.value === searchParams.orderBy && <ArrowUpIcon className='inline'/>} 
-                </TableColumnHeaderCell>
+                </Table.ColumnHeaderCell>
             ) ) }
 
           </Table.Row>
