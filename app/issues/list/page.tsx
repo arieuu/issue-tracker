@@ -5,9 +5,25 @@ import { IssueStatusBadge} from "@/app/components"; // Coming from our index fil
 import IssueActions from './IssueActions'
 import { Link } from '@/app/components';
 
-const IssuesPage = async() => {
+enum Status {
+  OPEN,
+  IN_PROGRESS,
+  CLOSED
+}
 
-  const issues = await prisma.issue.findMany();
+interface Props {
+    searchParams: {
+      status: string
+    }
+}
+
+const IssuesPage = async({ searchParams }: Props) => {
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: searchParams.status
+    }
+  });
 
   return (
     <div>
