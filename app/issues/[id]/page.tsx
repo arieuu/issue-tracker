@@ -8,10 +8,16 @@ import DeleteIssueButton from './DeleteIssueButton';
 import { getServerSession } from "next-auth";
 import authOptions from '@/app/auth/authOptions';
 import AssigneeSelect from './AssigneeSelect';
+import { cache } from 'react';
 
 interface Props {
     params: { id: string }
 }
+
+const fetchUser = cache((issueId: number) => {
+    // We don't need an await here because we're returning the value right away
+    return prisma.issue.findUnique({ where: { id: issueId }}) 
+})
 
 const IssueDetailPage = async ( { params }: Props) => {
 
@@ -19,10 +25,7 @@ const IssueDetailPage = async ( { params }: Props) => {
 
     // Get specific issue from database
 
-    const issue = await prisma.issue.findUnique({
-        where: { id: parseInt(params.id) }
-    });
-    
+    const issue = await fetchUser(parseInt(params.id));
     if(!issue) notFound();
 
     // Return the page for layout
@@ -51,7 +54,7 @@ export default IssueDetailPage
 
 
 export async function generateMetadata({ params }: Props) {
-    const issue = await prisma.issue.findUnique({ where: { id: parseInt(params.id)}})
+    const issue = await fetchUser(parseInt(params.id));
 
     return {
         title: issue?.title,
