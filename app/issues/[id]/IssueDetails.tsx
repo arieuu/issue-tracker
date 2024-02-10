@@ -14,7 +14,8 @@ const IssueDetails = ({ issue }: { issue: Issue }) => {
         </Flex>
 
         <Card className='prose max-w-full mt-4'>
-            <ReactMarkdown children={issue.description}/>
+        {// eslint-disable-next-line
+        } <ReactMarkdown children={issue.description}/>
         </Card> 
     </>
   )
